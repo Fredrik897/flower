@@ -9,9 +9,9 @@ const messages = [
 
   "Do your best ✨",
 
-  "Don't give up 💗",
+  "Keep going 🌻",
 
-  "Trust the process 🌸",
+  "Don't give up 💗",
 ];
 
 /* =========================================
@@ -22,11 +22,15 @@ const button = document.getElementById("boostButton");
 
 const messageText = document.getElementById("messageText");
 
+const messageBox = document.getElementById("messageBox");
+
 const petals = document.querySelectorAll(".petal");
 
 const center = document.querySelector(".center");
 
 const flowerHead = document.querySelector(".flower-head");
+
+const flower = document.querySelector(".flower");
 
 const scene = document.querySelector(".scene");
 
@@ -37,12 +41,12 @@ const scene = document.querySelector(".scene");
 let clickCount = 0;
 
 /* =========================================
-   CLICK
+   BUTTON CLICK
 ========================================= */
 
 button.addEventListener("click", function () {
   /* ===============================
-           STOP AFTER FLOWER IS COMPLETE
+           STOP AFTER FINAL
         =============================== */
 
   if (clickCount >= 5) {
@@ -50,7 +54,7 @@ button.addEventListener("click", function () {
   }
 
   /* ===============================
-           BUTTON ANIMATION
+           BUTTON PULSE
         =============================== */
 
   button.classList.remove("button-click");
@@ -60,7 +64,7 @@ button.addEventListener("click", function () {
   button.classList.add("button-click");
 
   /* ===============================
-           SPARKLE
+           SPARKLES
         =============================== */
 
   scene.classList.remove("sparkle");
@@ -70,60 +74,109 @@ button.addEventListener("click", function () {
   scene.classList.add("sparkle");
 
   /* ===============================
-           MESSAGE
+           RESET MESSAGE ANIMATION
         =============================== */
 
   messageText.classList.remove("message-animate");
 
+  messageText.classList.remove("final-message");
+
+  messageBox.classList.remove("message-pop");
+
   void messageText.offsetWidth;
+
+  /* ===============================
+           CHANGE MESSAGE
+        =============================== */
 
   messageText.textContent = messages[clickCount];
 
   messageText.classList.add("message-animate");
 
   /* ===============================
-           FLOWER PETAL
+           MESSAGE BOX POP
+        =============================== */
+
+  void messageBox.offsetWidth;
+
+  messageBox.classList.add("message-pop");
+
+  /* ===============================
+           BLOOM ONE PETAL
         =============================== */
 
   petals[clickCount].classList.add("show");
 
   /* ===============================
-           NEXT STEP
+           UPDATE CLICK COUNT
         =============================== */
 
   clickCount++;
 
-  /* ===============================
-           FINAL BLOOM
-        =============================== */
+  /* =================================
+           FINAL MOMENT
+           DON'T GIVE UP 💗
+        ================================= */
 
   if (clickCount === 5) {
-    setTimeout(function () {
-      /* Flower center */
+    /* ---------------------------
+               Make final message bigger
+            --------------------------- */
 
+    setTimeout(function () {
+      messageText.classList.remove("message-animate");
+
+      void messageText.offsetWidth;
+
+      messageText.classList.add("final-message");
+    }, 850);
+
+    /* ---------------------------
+               Flower center appears
+            --------------------------- */
+
+    setTimeout(function () {
       center.classList.add("show");
-
-      /* Gentle flower movement */
-
-      flowerHead.classList.add("bloomed");
-    }, 500);
-
-    /* Change button */
-
-    setTimeout(function () {
-      button.textContent = "The flower is blooming 🌸";
-
-      button.classList.add("finished");
     }, 700);
 
-    /* Remove button after a while */
+    /* ---------------------------
+               Flower glow
+            --------------------------- */
+
+    setTimeout(function () {
+      flower.classList.add("glowing");
+    }, 900);
+
+    /* ---------------------------
+               Gentle flower movement
+            --------------------------- */
+
+    setTimeout(function () {
+      flowerHead.classList.add("bloomed");
+    }, 1200);
+
+    /* ---------------------------
+               Change button
+            --------------------------- */
+
+    setTimeout(function () {
+      button.querySelector(".button-icon").textContent = "🌸";
+
+      button.querySelector(".button-text").textContent = "You got this";
+
+      button.classList.add("finished");
+    }, 900);
+
+    /* ---------------------------
+               Hide button
+            --------------------------- */
 
     setTimeout(function () {
       button.style.opacity = "0";
 
-      button.style.transform = "translateY(10px)";
+      button.style.transform = "translateY(12px)";
 
       button.style.pointerEvents = "none";
-    }, 2500);
+    }, 3000);
   }
 });
